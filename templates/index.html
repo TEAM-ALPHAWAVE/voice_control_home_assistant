@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Audio Recording</title>
+</head>
+
+<body>
+	<button id="recordButton">Record</button>
+	<button id="stopButton" disabled>Stop</button>
+	<div id="audioContainer"></div>
+	<button id="sendButton" disabled>Send</button>
+
+	<script>
+		var recordButton = document.getElementById('recordButton');
+		var stopButton = document.getElementById('stopButton');
+		var audioContainer = document.getElementById('audioContainer');
+		var sendButton = document.getElementById('sendButton');
+		var chunks = [];
+		var mediaRecorder;
+		var audioElement = null;
+		var audioBlob = null;
+
+		navigator.mediaDevices.getUserMedia({ audio: true })
+			.then(function (stream) {
+				mediaRecorder = new MediaRecorder(stream);
+
+				mediaRecorder.ondataavailable = function (e) {
+					chunks.push(e.data);
+				};
+
+				mediaRecorder.onstop = function () {
+					audioBlob = new Blob(chunks, { type: 'audio/webm' });
+					var audioURL = URL.createObjectURL(audioBlob);
+					var newAudioElement = document.createElement('audio');
+					newAudioElement.controls = true;
+					newAudioElement.src = audioURL;
+					audioContainer.innerHTML = '';
+					audioContainer.appendChild(newAudioElement);
+					audioElement = newAudioElement;
+					chunks = [];
+					sendButton.disabled = false;
+				};
+			})
+			.catch(function (err) {
+				console.log('The following error occurred: ' + err);
+			});
+
+		recordButton.addEventListener('click', function () {
+			recordButton.disabled = true;
+			stopButton.disabled = false;
+			sendButton.disabled = true;
+			chunks = [];
+			mediaRecorder.start();
+		});
+
+		stopButton.addEventListener('click', function () {
+			recordButton.disabled = false;
+			stopButton.disabled = true;
+			sendButton.disabled = false;
+			mediaRecorder.stop();
+		});
+
+		sendButton.addEventListener('click', function () {
+			if (audioElement) {
+				audioElement.src = '';
+				audioContainer.innerHTML = '';
+				var formData = new FormData();
+				formData.append('audio', audioBlob, 'audio.webm');
+				console.log(formData.entries())
+				// for (var pair of formData.entries()) {
+				// 	console.log(pair[0] + ', ' + pair[1]);
+				// }
+					fetch('/voice', {
+					method: 'POST',
+					body: formData
+					}).then(function (response) {
+						console.log(response)
+					}).catch(function (error) {
+						console.log(error)
+					})
+				
+		
+				// var xhr = new XMLHttpRequest();
+				// xhr.open('POST', '/voice', true);
+				// xhr.onreadystatechange = function () {
+				// 	if (xhr.readyState === 4 && xhr.status === 200) {
+				// 		console.log('Audio file uploaded successfully.');
+				// 	}
+				// };
+				// xhr.send(formData);
+			}
+		});
+	</script>
+</body>
+
+</html>
