@@ -12,14 +12,14 @@
 	<button id="sendButton" disabled>Send</button>
 
 	<script>
-		var recordButton = document.getElementById('recordButton');
-		var stopButton = document.getElementById('stopButton');
-		var audioContainer = document.getElementById('audioContainer');
-		var sendButton = document.getElementById('sendButton');
-		var chunks = [];
-		var mediaRecorder;
-		var audioElement = null;
-		var audioBlob = null;
+		const recordButton = document.getElementById('recordButton');
+		const stopButton = document.getElementById('stopButton');
+		const audioContainer = document.getElementById('audioContainer');
+		const sendButton = document.getElementById('sendButton');
+		let chunks = [];
+		let mediaRecorder;
+		let audioElement = null;
+		let audioBlob = null;
 
 		navigator.mediaDevices.getUserMedia({ audio: true })
 			.then(function (stream) {
@@ -31,8 +31,8 @@
 
 				mediaRecorder.onstop = function () {
 					audioBlob = new Blob(chunks, { type: 'audio/webm' });
-					var audioURL = URL.createObjectURL(audioBlob);
-					var newAudioElement = document.createElement('audio');
+					let audioURL = URL.createObjectURL(audioBlob);
+					let newAudioElement = document.createElement('audio');
 					newAudioElement.controls = true;
 					newAudioElement.src = audioURL;
 					audioContainer.innerHTML = '';
@@ -65,12 +65,10 @@
 			if (audioElement) {
 				audioElement.src = '';
 				audioContainer.innerHTML = '';
-				var formData = new FormData();
+				let formData = new FormData();
 				formData.append('audio', audioBlob, 'audio.webm');
 				console.log(formData.entries())
-				// for (var pair of formData.entries()) {
-				// 	console.log(pair[0] + ', ' + pair[1]);
-				// }
+				
 					fetch('/voice', {
 					method: 'POST',
 					body: formData
@@ -81,14 +79,7 @@
 					})
 				
 		
-				// var xhr = new XMLHttpRequest();
-				// xhr.open('POST', '/voice', true);
-				// xhr.onreadystatechange = function () {
-				// 	if (xhr.readyState === 4 && xhr.status === 200) {
-				// 		console.log('Audio file uploaded successfully.');
-				// 	}
-				// };
-				// xhr.send(formData);
+				
 			}
 		});
 	</script>
