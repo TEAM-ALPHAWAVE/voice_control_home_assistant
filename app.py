@@ -2,9 +2,9 @@ from flask import Flask, request, render_template, jsonify
 import speech_recognition as sr
 import io
 import os
-from gpiozero import LED
+from gpiozero import LED,Buzzer
 from signal import pause
-
+from time import sleep
 from pydub import AudioSegment
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ app = Flask(__name__)
 red = LED(17)
 green = LED(27)
 yellow = LED(22)
-
+buzzer = Buzzer(16)
 
 @app.route('/')
 def index():
@@ -55,34 +55,69 @@ def process_voice():
         print(text)
 
         if 'fan on' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             red.on()
         elif 'fun on' in text:
             red.on()
             
         elif 'television on' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             green.on()
             
         elif 'light on' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             yellow.on()
           
         elif 'light off' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             yellow.off()
 
         elif 'fan off'  in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             red.off()
+
         elif 'fun off' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             red.off()
 
         elif 'television off' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             green.off()
 
-        else:
-            red.blink()
-            yellow.blink()
-            green.blink()
+        elif 'all appliances off' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
             red.off()
             yellow.off()
             green.off()
+
+        elif 'all appliances on' in text:
+            buzzer.on()
+            sleep(0.5)
+            buzzer.off()
+            red.on()
+            yellow.on()
+            green.on()
+
+        else:
+            buzzer.on()
+            sleep(2)
+            buzzer.off()
 
             
             
