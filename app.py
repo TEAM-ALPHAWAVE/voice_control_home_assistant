@@ -1,11 +1,14 @@
 from flask import Flask, request, render_template, jsonify
 import speech_recognition as sr
+
+import soundfile as sf
+
 import io
 import os
 from gpiozero import LED
 from signal import pause
 
-from pydub import AudioSegment
+# from pydub import AudioSegment
 
 app = Flask(__name__)
 
