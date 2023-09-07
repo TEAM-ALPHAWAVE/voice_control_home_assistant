@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Audio Recording</title>
+	<title>Alpha Home Automation</title>
 </head>
 <style>
     body {
@@ -69,11 +69,12 @@
 <body>
 	<div class="logo">ALPHAWAVE</div>
 	<div class="picture">
-		<img src="{{ url_for('static', filename='images/logo2.png') }}" alt="Example Image">
+		
+		<button id="recordButton" class="button "><img src="{{ url_for('static', filename='images/mic.png') }}" alt="mic picture"></button>
 	</div>
 	<div class="button-container">
 
-	<button id="recordButton" class="button recording-button">Record</button>
+	
 	<button id="stopButton" disabled class="button stop-button">Stop</button>
 	<div id="audioContainer"></div>
 	<button id="sendButton" disabled class="button send-button">Send</button>
@@ -120,6 +121,7 @@
 			sendButton.disabled = true;
 			chunks = [];
 			mediaRecorder.start();
+			
 		});
 
 		stopButton.addEventListener('click', function () {
@@ -127,9 +129,12 @@
 			stopButton.disabled = true;
 			sendButton.disabled = false;
 			mediaRecorder.stop();
+
+		
 		});
 
 		sendButton.addEventListener('click', function () {
+		
 			if (audioElement) {
 				audioElement.src = '';
 				audioContainer.innerHTML = '';

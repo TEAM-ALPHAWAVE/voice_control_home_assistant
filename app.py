@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import speech_recognition as sr
 
-import soundfile as sf
+
 
 import io
 import os
