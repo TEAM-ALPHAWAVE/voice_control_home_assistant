@@ -1,12 +1,21 @@
 from flask import Flask, request, render_template, jsonify
 import speech_recognition as sr
-# import soundfile as sf
+
+import soundfile as sf
+
 import io
 import os
+from gpiozero import LED
+from signal import pause
 
 # from pydub import AudioSegment
 
 app = Flask(__name__)
+
+
+red = LED(17)
+green = LED(27)
+yellow = LED(22)
 
 
 @app.route('/')
@@ -47,6 +56,39 @@ def process_voice():
     # Transcribe the audio using Google Speech Recognition
         text = r.recognize_google(audio)
         print(text)
+
+        if 'fan on' in text:
+            red.on()
+        elif 'fun on' in text:
+            red.on()
+            
+        elif 'television on' in text:
+            green.on()
+            
+        elif 'light on' in text:
+            yellow.on()
+          
+        elif 'light off' in text:
+            yellow.off()
+
+        elif 'fan off'  in text:
+            red.off()
+        elif 'fun off' in text:
+            red.off()
+
+        elif 'television off' in text:
+            green.off()
+
+        else:
+            red.blink()
+            yellow.blink()
+            green.blink()
+            red.off()
+            yellow.off()
+            green.off()
+
+            
+            
         return jsonify("Converted Successfully")
 
 # Print the transcribed text
@@ -56,7 +98,7 @@ def process_voice():
     return 'Success'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host = '192.168.137.10' ,port=3000)
     
     
     
