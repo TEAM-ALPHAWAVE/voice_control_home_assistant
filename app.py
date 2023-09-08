@@ -43,10 +43,10 @@ def process_voice():
         r = sr.Recognizer()
 
     # Load the audio file
-        havard = sr.AudioFile(io.BytesIO(wav_data))
+        recorded_sound = sr.AudioFile(io.BytesIO(wav_data))
 
     # Open the audio file as a source
-        with havard as source:
+        with recorded_sound as source:
         # Read the entire audio file
             audio = r.record(source)
 
@@ -86,7 +86,7 @@ def process_voice():
 
             
             
-        return jsonify("Converted Successfully")
+        
 
 # Print the transcribed text
     

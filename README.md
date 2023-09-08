@@ -1,72 +1,81 @@
-# voice_control_home_assistant
-A voice-controlled home assistant for Raspberry Pi
-## Overview
-The Voice Control Home Assistant is a smart home automation project that allows you to control various devices and perform tasks in your home using voice commands. This project is designed to make your daily routines more convenient and efficient.
+# Voice Controlled Home Assistant
 
-## Features
+This is a voice controlled home assistant that can be used to control various home appliances using voice commands. It is built using Python and Flask. It has a frontend with a microphone button that can be used to record voice commands. The voice commands are then sent to the Flask server, which processes them and sends the appropriate commands to the Raspberrypi. The Raspberrypi then controls the home appliances using the appropriate hardware.
 
-- Voice-controlled lighting and appliance management
-- Integration with popular voice assistants (e.g., Amazon Alexa, Google Assistant)
-- Customizable voice commands for different actions
-- Support for a wide range of IoT (Internet of Things) devices
-- User-friendly web interface for configuration and monitoring
+## Prerequisites
 
-## Getting Started
+Before running the Flask server, ensure that you have the following installed on your system:
 
-These instructions will help you set up the Voice Control Home Assistant on your local development environment or your smart home system.
+- Python: Make sure you have Python installed on your machine. You can download it from the official Python website (<https://www.python.org/downloads/>).
 
-### Prerequisites
+## Installation
 
-- [Python](https://www.python.org/downloads/) (version X.X or higher)
-- [Virtual Environment](https://docs.python.org/3/library/venv.html) (recommended for isolating project dependencies)
-- [Microphone](https://www.example.com) (for voice input)
-- [Smart Home Devices](https://www.example.com) (for controlling appliances)
+1. Clone the repository:
 
-### Installation
-
-1. Clone the repository to your local machine:
-
-   ```bash
+   ````
    git clone https://github.com/your-username/voice_control_home_assistant.git
-Create a virtual environment and activate it:
+   ```
 
-bash
-Copy code
-python -m venv venv
-source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
-Install the required dependencies:
+2. Navigate to the project directory:
 
-bash
-Copy code
-pip install -r requirements.txt
-Configure the project by editing the config.yaml file to specify your smart home devices and voice assistant settings.
+   ````
+   cd simple-flask-server
+   ```
 
-Run the application:
+3. Create a virtual environment (optional, but recommended):
 
-bash
-Copy code
-python app.py
-Usage
-Wake up your voice assistant by saying the activation phrase (e.g., "Hey, Home Assistant").
-Issue voice commands to control your devices or perform actions (e.g., "Turn on the lights," "Set the thermostat to 72 degrees").
-Contributing
-If you would like to contribute to this project, please follow our contribution guidelines.
+   ````
+   python -m venv venv
+   ```
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+4. Activate the virtual environment:
+   - For Windows:
 
-Acknowledgments
-Special thanks to Author Name for inspiration and guidance.
-Contact
-If you have any questions or feedback, feel free to contact us at alphawave@gmail.com
+     ```
+     venv\Scripts\activate
+     ```
 
-Disclaimer: This project is for educational and personal use only. Always consider the privacy and security implications of connecting devices to a voice-controlled system.
+   - For macOS and Linux:
 
-csharp
-Copy code
+     ```
+     source venv/bin/activate
+     ```
 
-Please replace the placeholders (e.g., URLs, email addresses, activation phrase, and project-specific details) with your actual project information. Additionally, consider adding more sections or details depending on the complexity and requirements of your Voice Control Home Assistant project.
+5. Install the required dependencies:
 
+   ````
+   pip install -r requirements.txt
+   ```
 
+## Usage
 
+1. Once the installation is complete, you can start the Flask server by running the following command:
 
+   ````
+   python app.py
+   ```
+
+2. You should see output similar to the following:
+
+   ````
+   * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+   ```
+
+3. Open your web browser and navigate to `http://127.0.0.1:5000/` or `http://localhost:5000/`. You should see the default Flask page.
+
+4. To stop the server, press `CTRL+C` in the terminal window where the server is running.
+
+## Customization
+
+- **Changing the Port**: By default, the Flask server runs on port `5000`. If you want to use a different port, open the `app.py` file and modify the following line:
+
+   ````python
+   app.run(port=5000)
+   ```
+   Replace `5000` with your desired port number.
+
+- **Modifying the Routes**: The Flask server comes with a default route at the root URL (`/voice`). If you want to add additional routes or modify the existing ones, open the `app.py` file and follow the Flask routing syntax. You can define routes and their corresponding functions using the `@app.route` decorator.
+
+## Conclusion
+
+That's it! You have successfully set up the  Flask server. You can now use this server to run this voice controlled home assistant.
