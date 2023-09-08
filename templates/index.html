@@ -2,14 +2,83 @@
 <html>
 
 <head>
-	<title>Audio Recording</title>
+	<title>Alpha Home Automation</title>
 </head>
+<style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
+    .logo {
+      font-size: 150px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .picture {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .picture img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      color: rgb(9, 9, 9);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 10px;
+    }
+
+    .recording-button {
+      background-color: yellow;
+    }
+
+    .send-button {
+      background-color: green;
+    }
+
+    .stop-button {
+      background-color: red;
+    }
+
+    .button:hover {
+      opacity: 0.9;
+    }
+  </style>
 <body>
-	<button id="recordButton">Record</button>
-	<button id="stopButton" disabled>Stop</button>
+	<div class="logo">ALPHAWAVE</div>
+	<div class="picture">
+		
+		<button id="recordButton" class="button "><img src="{{ url_for('static', filename='images/mic.png') }}" alt="mic picture"></button>
+	</div>
+	<div class="button-container">
+
+	
+	<button id="stopButton" disabled class="button stop-button">Stop</button>
 	<div id="audioContainer"></div>
-	<button id="sendButton" disabled>Send</button>
+	<button id="sendButton" disabled class="button send-button">Send</button>
+</div>
 
 	<script>
 		const recordButton = document.getElementById('recordButton');
@@ -52,6 +121,7 @@
 			sendButton.disabled = true;
 			chunks = [];
 			mediaRecorder.start();
+			
 		});
 
 		stopButton.addEventListener('click', function () {
@@ -59,9 +129,12 @@
 			stopButton.disabled = true;
 			sendButton.disabled = false;
 			mediaRecorder.stop();
+
+		
 		});
 
 		sendButton.addEventListener('click', function () {
+		
 			if (audioElement) {
 				audioElement.src = '';
 				audioContainer.innerHTML = '';
