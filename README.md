@@ -12,21 +12,23 @@ Before running the Flask server, ensure that you have the following installed on
 
 1. Clone the repository:
 
-   ````
-   git clone https://github.com/your-username/voice_control_home_assistant.git
-   ```
+   ````bash
+   git clone https://github.com/TEAM-ALPHAWAVE/voice_control_home_assistant.git
+   ```````
 
 2. Navigate to the project directory:
 
-   ````
-   cd simple-flask-server
-   ```
+   ````bash
+   cd voice_control_home_assistant
+   ```````
+   
+   
 
 3. Create a virtual environment (optional, but recommended):
 
-   ````
+   ````bash
    python -m venv venv
-   ```
+   ``````
 
 4. Activate the virtual environment:
    - For Windows:
@@ -44,8 +46,8 @@ Before running the Flask server, ensure that you have the following installed on
 5. Install the required dependencies:
 
    ````
-   pip install -r requirements.txt
-   ```
+   pip install -r requirement.txt
+   ``````
 
 ## Usage
 
